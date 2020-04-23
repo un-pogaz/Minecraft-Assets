@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUnindex));
             this.prbProgress = new System.Windows.Forms.ProgressBar();
             this.btnUnindex = new System.Windows.Forms.Button();
             this.btnAbort = new System.Windows.Forms.Button();
@@ -149,8 +150,9 @@
             this.Controls.Add(this.btnAbort);
             this.Controls.Add(this.btnUnindex);
             this.Controls.Add(this.prbProgress);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmUnindex";
-            this.Text = "Form1";
+            this.Text = "Minecraft Unindex";
             this.Shown += new System.EventHandler(this.frmUnindex_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -107,9 +107,10 @@ namespace Minecraft_Unindex
             btnAbort.Enabled = false;
         }
 
+        string folderUnindex;
         private void bgwUnindex_DoWork(object sender, DoWorkEventArgs e)
         {
-            string folder = Path.Combine(Settings.TempFolder, chkIndex.CheckedItems[0].ToString());
+            folderUnindex = Path.Combine(Settings.TempFolder, chkIndex.CheckedItems[0].ToString());
 
             foreach (Element item in elementUnindex)
             {
@@ -124,7 +125,7 @@ namespace Minecraft_Unindex
                     string hash = Path.Combine(Minecraft_Objects, item.Hash.Truncate(2), item.Hash);
                     if (File.Exists(hash))
                     {
-                        string file = Path.Combine(folder, item.FullName);
+                        string file = Path.Combine(folderUnindex, item.FullName);
                         Directory.CreateDirectory(Path.GetDirectoryName(file));
                         File.Copy(hash, file, true);
                     }
@@ -132,8 +133,6 @@ namespace Minecraft_Unindex
                 catch
                 {
                 }
-                
-                
             }
         }
 
@@ -149,11 +148,13 @@ namespace Minecraft_Unindex
             if (e.Cancelled)
                 lblProgress.Text = "The operation was canceled.";
             else if (e.Error != null)
-                lblProgress.Text = "Error: "+ e.Error.Message;
+                lblProgress.Text = "Error: " + e.Error.Message;
             else
-            {
                 lblProgress.Text = "The operation was completed.";
-            }
+
+            if (folderUnindex != null)
+                System.Diagnostics.Process.Start(folderUnindex);
+
             btnUnindex.Enabled = true;
             btnAbort.Enabled = false;
         }
